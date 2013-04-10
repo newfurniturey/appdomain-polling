@@ -11,7 +11,7 @@ namespace Remote {
 	public class NormalLibrary : IRemoteObject {
 		private Timer _timer = null;
 
-		public void Init() {
+		public override void Init() {
 			_timer = new Timer(2000);
 			_timer.Elapsed += new ElapsedEventHandler(_timerEvent);
 			_timer.Enabled = true;
@@ -23,10 +23,6 @@ namespace Remote {
 			_timer.Stop();
 			_timer.Dispose();
 			_timer = null;
-		}
-
-		public void GetMemoryUsage() {
-
 		}
 
 		private void _timerEvent(object source, ElapsedEventArgs args) {

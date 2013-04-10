@@ -14,7 +14,7 @@ namespace Remote {
 		private Timer _timer = null;
 		private static object _lockObj = new object();
 
-		public void Init() {
+		public override void Init() {
 			_timer = new Timer(_timerEvent, null, 10000, 10000);
 			Trace.WriteLine("MemoryAbusingLibrary: Init()");
 		}
@@ -22,10 +22,6 @@ namespace Remote {
 		public void Dispose() {
 			_timer.Dispose();
 			_timer = null;
-		}
-
-		public void GetMemoryUsage() {
-
 		}
 
 		unsafe private static void _timerEvent(object state) {
