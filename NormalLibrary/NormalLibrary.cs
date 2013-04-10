@@ -30,7 +30,10 @@ namespace Remote {
 		}
 
 		private void _timerEvent(object source, ElapsedEventArgs args) {
-
+			// misc light operations
+			int someVar = 0;
+			for (int i = 0; i <= 10; i++) someVar += i;
+			someVar -= 13;
 		}
 	}
 }
