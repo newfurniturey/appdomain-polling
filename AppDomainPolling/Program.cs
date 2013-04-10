@@ -8,7 +8,13 @@ using System.Threading.Tasks;
 namespace AppDomainPolling {
 	class Program {
 		private static readonly string[] _asmProjects = new string[] {
+			"NormalLibrary",
+			"MemoryAbusingLibrary"
 		};
+
+		private static readonly List<RemoteLoader> _remoteObjects = new List<RemoteLoader>();
+
+		private static Timer _statsTimer = null;
 
 		static void Main(string[] args) {
 			new Program();
@@ -28,12 +34,30 @@ namespace AppDomainPolling {
 			Console.WriteLine("");
 
 			Console.WriteLine("Initializing each remote object...");
+			foreach (RemoteLoader obj in _remoteObjects) {
+				obj.Init();
+			}
+			Console.WriteLine("");
+
+			_statsTimer = new Timer(_getStats, null, 1000, 1000);
 		}
 
 		public void ProcessAssembly(string assemblyPath) {
 			string dllName = assemblyPath.Substring(assemblyPath.LastIndexOf('\\') + 1);
 
+			AppDomain domain = AppDomain.CreateDomain(dllName);
+			RemoteLoader remoteLoader = (RemoteLoader)domain.CreateInstanceAndUnwrap(typeof(RemoteLoader).Assembly.FullName, typeof(RemoteLoader).FullName);
+			remoteLoader.Load(assemblyPath);
+			_remoteObjects.Add(remoteLoader);
+
 			Console.WriteLine("\tLoaded: {0}", dllName);
+		}
+
+		private void _getStats(object state) {
+			Console.WriteLine("Getting stats...");
+			foreach (RemoteLoader obj in _remoteObjects) {
+				obj.GetMemoryUsage();
+			}
 		}
 	}
 }
