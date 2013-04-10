@@ -11,3 +11,5 @@ packages/
 *.vcxproj
 *.vcxproj.filters
 *.sln.docstates
+*.csproj
+*.AssemblyInfo.cs
