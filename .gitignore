@@ -1,0 +1,7 @@
+[Bb]in/
+[Dd]ebug/
+[Oo]bj/
+[Rr]elease/
+*.suo
+packages/
+nuget-release/
