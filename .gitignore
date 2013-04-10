@@ -2,6 +2,12 @@
 [Dd]ebug/
 [Oo]bj/
 [Rr]elease/
-*.suo
+x64/
+build/
 packages/
-nuget-release/
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.sln.docstates
